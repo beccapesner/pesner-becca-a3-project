@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace pesner_becca_a3_project
 {
-    internal class Obstacle
+    public class Obstacle
     {
         float position = 0;
 
-        Obstacle()
+        public Obstacle()
         {
             position = 1000;
         }
-        Obstacle(float p)
+        public Obstacle(float p)
         {
             position = p;
         }

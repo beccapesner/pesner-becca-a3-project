@@ -23,7 +23,7 @@ namespace MohawkGame2D
         float jumpTime = 0;
         float jumpPower = 1.5f;
         float gravity = 1.7f;
-        Obstacle[] obstacles = [];
+        Obstacle[] obstacles = [new Obstacle(), new Obstacle(1100)];
         
 
         public void Setup()
