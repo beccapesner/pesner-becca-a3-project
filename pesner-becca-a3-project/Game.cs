@@ -11,17 +11,11 @@ namespace MohawkGame2D
     public class Game
     {
         // Place your variables here:
-
-
-        /// <summary>
-        ///     Setup runs once before the game loop begins.
-        /// </summary>
+        Texture2D capybara = Graphics.LoadTexture("./capybara.png");
         public void Setup()
         {
         
-            Window.SetSize (400, 400);
-            Window.ClearBackground(Color.White);
-
+            Window.SetSize (800, 600);
         }
 
         /// <summary>
@@ -29,7 +23,15 @@ namespace MohawkGame2D
         /// </summary>
         public void Update()
         {
+            Window.ClearBackground(Color.White);
+            DrawGround();
+            Graphics.Draw(capybara, 0, 300);
+        }
 
+        public void DrawGround()
+        {
+            Draw.FillColor = new Color(70, 60, 10);
+            Draw.Rectangle(0, 450, 800, 150);
         }
     }
 
