@@ -2,6 +2,7 @@
 using System;
 using System.Numerics;
 using pesner_becca_a3_project;
+using Raylib_cs;
 
 // The namespace your code is in.
 namespace MohawkGame2D
@@ -13,6 +14,7 @@ namespace MohawkGame2D
     {
         // Place your variables here:
         Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
+        Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
         float jumpGrace = 5;
