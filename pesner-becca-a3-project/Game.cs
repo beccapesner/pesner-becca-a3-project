@@ -30,7 +30,7 @@ namespace MohawkGame2D
         float obstacleSpeed = 3.0f;  // speed of obstacles
         float score = 0f;  // score based on time
 
-        Obstacle[] obstacles = [new Obstacle(), new Obstacle(1100)];
+        Obstacle[] obstacles = [new Obstacle(), new Obstacle(new Vector2(0, 1100))];
 
         //Game state management
         bool isGameOver = false;
@@ -85,14 +85,20 @@ namespace MohawkGame2D
                 }
             }
 
-            //// check for game-over condition (e.g., collision with obstacle)
-            //foreach (var obstacle in obstacles)
-            //{
-            //    if (capybaraPosition.X + capybaraHeight > obstacle.Position.X && capybaraPosition.X < obstacle.Position.X + obstacle.Width)
-            //    {
-            //        isGameOver = true;
-            //    }
-            //}
+            // draw obstacles
+            foreach (var obstacle in obstacles)
+            {
+                Graphics.Draw(orangeTexture, obstacle.Position);
+            }
+
+            // check for game-over condition (e.g., collision with obstacle/orange)
+            foreach (var obstacle in obstacles)
+            {
+                if (capybaraPosition.X + capybaraHeight > obstacle.Position.X && capybaraPosition.X < obstacle.Position.X + obstacle.Width)
+                {
+                    isGameOver = true;
+                }
+            }
         }
 
         // logic when the game is over
@@ -116,7 +122,7 @@ namespace MohawkGame2D
             isJumping = false;
             isGameOver = false;
             jumpTime = jumpTimeDefault;
-            obstacles = new Obstacle[] { new Obstacle(), new Obstacle(1100) }; // reset obstacles
+            obstacles = new Obstacle[] { new Obstacle(), new Obstacle(new Vector2(0, 1100)) }; // reset obstacles
         }
 
         public void DrawGround()
