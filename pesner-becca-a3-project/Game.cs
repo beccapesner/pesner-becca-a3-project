@@ -85,14 +85,14 @@ namespace MohawkGame2D
                 }
             }
 
-            // check for game-over condition (e.g., collision with obstacle)
-            foreach (var obstacle in obstacles)
-            {
-                if (capybaraPosition.X + capybaraHeight > obstacle.Position.X && capybaraPosition.X < obstacle.Position.X + obstacle.Width)
-                {
-                    isGameOver = true;
-                }
-            }
+            //// check for game-over condition (e.g., collision with obstacle)
+            //foreach (var obstacle in obstacles)
+            //{
+            //    if (capybaraPosition.X + capybaraHeight > obstacle.Position.X && capybaraPosition.X < obstacle.Position.X + obstacle.Width)
+            //    {
+            //        isGameOver = true;
+            //    }
+            //}
         }
 
         // logic when the game is over
@@ -127,3 +127,5 @@ namespace MohawkGame2D
     }
 
 }
+
+// committing a push because my laptop just shut off twice 
