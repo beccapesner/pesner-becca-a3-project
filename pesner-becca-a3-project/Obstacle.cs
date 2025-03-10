@@ -9,25 +9,18 @@ namespace pesner_becca_a3_project
 {
     public class Obstacle
     {
-        public Vector2 Position;
-        public float Width = 0;
+        public Vector2 position;
+        public float width = 0;
 
-        public Obstacle()
-        {
-            Position = new Vector2(0, 350);
-            Width = 0;
-        }
         public Obstacle(Vector2 position)
         {
-            Position = position;
-            Width = 0;
+            this.position = position;
+            this.width = 0;
         }
         public Obstacle(Vector2 position, float width)
         {
-            Position = position;
-            Width = width;
+            this.position = position;
+            this.width = width;
         }
     }
 }
-
-// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

@@ -17,20 +17,21 @@ namespace MohawkGame2D
         // Place your variables here:
         Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
         Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
+        
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
         float jumpGrace = 5;
         Vector2 groundStart = new Vector2(0, 450);
         Vector2 groundSize = new Vector2(800, 150);
         bool isJumping = false;
-        float jumpTimeDefault = 0.8f;
+        const float jumpTimeDefault = 0.5f;
         float jumpTime = 0;
-        float jumpPower = 1.5f;
-        float gravity = 1.7f;
-        float obstacleSpeed = 3.0f;  // speed of obstacles
+        const float jumpPower = 3.5f;
+        const float gravity = 2.2f;
+        const float obstacleSpeed = 3.0f;  // speed of obstacles
         float score = 0f;  // score based on time
 
-        Obstacle[] obstacles = [new Obstacle(), new Obstacle(new Vector2(0, 1100))];
+        Obstacle[] obstacles = { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) };
 
         //Game state management
         bool isGameOver = false;
@@ -40,6 +41,8 @@ namespace MohawkGame2D
             Window.SetSize(800, 600);
             jumpTime = jumpTimeDefault;
             isGameOver = false;
+
+            ResetGame();
         }
 
         public void Update()
@@ -56,11 +59,15 @@ namespace MohawkGame2D
 
         // when the game is running 
         public void PlayGame()
-
         {
             Window.ClearBackground(Color.White);
             DrawGround();
             Graphics.Draw(capybaraTexture, capybaraPosition);
+
+            // Draw position circle and box around capybara
+            Draw.FillColor = new Color(90, 10, 0);
+            Draw.Circle(capybaraPosition.X, capybaraPosition.Y, 5);
+            Draw.Rectangle(capybaraPosition.X + 10, capybaraPosition.Y + 50, 130, 100);
 
             // player jump logic 
             if (Input.IsKeyboardKeyPressed(KeyboardInput.Space) && (groundStart.Y < capybaraPosition.Y + capybaraHeight + jumpGrace))
@@ -85,16 +92,27 @@ namespace MohawkGame2D
                 }
             }
 
-            // draw obstacles
+            // update obstacles
             foreach (var obstacle in obstacles)
             {
-                Graphics.Draw(orangeTexture, obstacle.Position);
-            }
+                // scale down orange
+                Graphics.Scale = 0.7f;
+                obstacle.position -= Vector2.UnitX * obstacleSpeed;
+                Graphics.Draw(orangeTexture, obstacle.position);
+                // reset scale
+                Graphics.Scale = 1f;
 
-            // check for game-over condition (e.g., collision with obstacle/orange)
-            foreach (var obstacle in obstacles)
-            {
-                if (capybaraPosition.X + capybaraHeight > obstacle.Position.X && capybaraPosition.X < obstacle.Position.X + obstacle.Width)
+                // Draw position circle and box around orange
+                Draw.Circle(obstacle.position.X, obstacle.position.Y, 5);
+                Draw.Rectangle(obstacle.position.X + 45, obstacle.position.Y + 50, 55, 50);
+
+                // reset obstacle position if goes off screen
+                if (obstacle.position.X < -100)
+                {
+                    obstacle.position.X = 850;
+                }
+
+                if (capybaraPosition.X >= obstacle.position.X && capybaraPosition.Y >= obstacle.position.Y)
                 {
                     isGameOver = true;
                 }
@@ -122,7 +140,7 @@ namespace MohawkGame2D
             isJumping = false;
             isGameOver = false;
             jumpTime = jumpTimeDefault;
-            obstacles = new Obstacle[] { new Obstacle(), new Obstacle(new Vector2(0, 1100)) }; // reset obstacles
+            obstacles = new Obstacle[] { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) }; // reset obstacles
         }
 
         public void DrawGround()
@@ -132,6 +150,4 @@ namespace MohawkGame2D
         }
     }
 
-}
-
-// committing a push because my laptop just shut off twice 
+} 
