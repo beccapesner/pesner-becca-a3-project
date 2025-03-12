@@ -17,7 +17,8 @@ namespace MohawkGame2D
         // Place your variables here:
         Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
         Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
-        
+        Texture2D backgroundTexture = Graphics.LoadTexture("./background.png");
+
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
         float jumpGrace = 5;
@@ -60,14 +61,15 @@ namespace MohawkGame2D
         // when the game is running 
         public void PlayGame()
         {
-            Window.ClearBackground(Color.White);
+            //Window.ClearBackground(Color.White);
+            Graphics.Draw(backgroundTexture, 0, 0);
             DrawGround();
             Graphics.Draw(capybaraTexture, capybaraPosition);
 
             // Draw position circle and box around capybara
             Draw.FillColor = new Color(90, 10, 0);
             Draw.Circle(capybaraPosition.X, capybaraPosition.Y, 5);
-            Draw.Rectangle(capybaraPosition.X + 10, capybaraPosition.Y + 50, 130, 100);
+            //Draw.Rectangle(capybaraPosition.X + 10, capybaraPosition.Y + 50, 130, 100);
 
             // player jump logic 
             if (Input.IsKeyboardKeyPressed(KeyboardInput.Space) && (groundStart.Y < capybaraPosition.Y + capybaraHeight + jumpGrace))
@@ -104,7 +106,7 @@ namespace MohawkGame2D
 
                 // Draw position circle and box around orange
                 Draw.Circle(obstacle.position.X, obstacle.position.Y, 5);
-                Draw.Rectangle(obstacle.position.X + 45, obstacle.position.Y + 50, 55, 50);
+                //Draw.Rectangle(obstacle.position.X + 45, obstacle.position.Y + 50, 55, 50);
 
                 // reset obstacle position if goes off screen
                 if (obstacle.position.X < -100)
@@ -122,10 +124,10 @@ namespace MohawkGame2D
         // logic when the game is over
         public void GameOver()
         {
-            Window.ClearBackground(Color.Red); // change the background to red when game is over and put "game over" text
+            /*Window.ClearBackground(Color.Red);*/ // change the background to red when game is over and put "game over" text
             Text.Color = Color.White;
-            Text.Size = 7;
-            Text.Draw("game over!", 300, 250);
+            Text.Size = 20;
+            Text.Draw("game over!", 300, 100);
             // reset the game after some time or on key press enter
             if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
             {
@@ -142,7 +144,6 @@ namespace MohawkGame2D
             jumpTime = jumpTimeDefault;
             obstacles = new Obstacle[] { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) }; // reset obstacles
         }
-
         public void DrawGround()
         {
             Draw.FillColor = new Color(70, 60, 10);
