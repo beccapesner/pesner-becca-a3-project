@@ -95,7 +95,7 @@ namespace MohawkGame2D
             foreach (var obstacle in obstacles)
             {
                 // scale down orange
-                Graphics.Scale = 0.4f; // changed from 0.7f
+                Graphics.Scale = 0.7f; 
                 obstacle.position -= Vector2.UnitX * obstacleSpeed;
                 Graphics.Draw(orangeTexture, obstacle.position);
                 // reset scale
