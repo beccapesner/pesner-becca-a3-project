@@ -6,7 +6,7 @@ using System.Numerics;
 using pesner_becca_a3_project;
 using Raylib_cs;
 
-// The namespace your code is in.
+// the namespace your code is in.
 namespace MohawkGame2D
 {
     /// <summary>
@@ -14,7 +14,7 @@ namespace MohawkGame2D
     /// </summary>
     public class Game
     {
-        // Place your variables here:
+        // place your variables here:
         Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
         Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
         Texture2D backgroundTexture = Graphics.LoadTexture("./background.png");
@@ -34,9 +34,9 @@ namespace MohawkGame2D
         float score = 0f;  // score based on time
 
         Obstacle[] obstacles = { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) };
-        Clouds[] clouds = { new Clouds(new Vector2(750, 100)), new Clouds(new Vector2(950, 100)) };
+        Clouds[] clouds = { new Clouds(new Vector2(750, 50)), new Clouds(new Vector2(950, 50)) };
 
-        //Game state management
+        // game state management
         bool isGameOver = false;
         public void Setup()
         {
@@ -63,7 +63,7 @@ namespace MohawkGame2D
         // when the game is running 
         public void PlayGame()
         {
-            // Clear background and draw other elements
+            // clear background and draw other elements
             Graphics.Draw(backgroundTexture, 0, 0);
             DrawGround();
             Graphics.Draw(capybaraTexture, capybaraPosition);
@@ -95,7 +95,7 @@ namespace MohawkGame2D
             foreach (var obstacle in obstacles)
             {
                 // scale down orange
-                Graphics.Scale = 0.7f;
+                Graphics.Scale = 0.4f; // changed from 0.7f
                 obstacle.position -= Vector2.UnitX * obstacleSpeed;
                 Graphics.Draw(orangeTexture, obstacle.position);
                 // reset scale
@@ -112,6 +112,7 @@ namespace MohawkGame2D
                     isGameOver = true;
                 }
             }
+
             // update and draw clouds
             foreach (var cloud in clouds)
             {
@@ -126,15 +127,25 @@ namespace MohawkGame2D
                     cloud.position.X = 800; // reset to the right edge of the screen
                 }
             }
+
+            // collision detection 
+            foreach (Obstacle obstacle in obstacles)
+            {
+                if (Vector2.Distance(obstacle.position, capybaraPosition) < 5)
+                {
+                    GameOver();
+                }
+            }
         }
 
         // logic when the game is over
         public void GameOver()
         {
-            /*Window.ClearBackground(Color.Red);*/ // change the background to red when game is over and put "game over" text
+            // game over text
             Text.Color = Color.White;
             Text.Size = 20;
-            Text.Draw("game over!", 300, 100);
+            Text.Draw("game over!", 300, 50);
+
             // reset the game after some time or on key press enter
             if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
             {

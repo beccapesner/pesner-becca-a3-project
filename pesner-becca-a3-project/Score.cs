@@ -20,5 +20,6 @@ namespace pesner_becca_a3_project
                 // Display the score on the screen
                 //Renderer.DrawText($"Score: {currentScore}", 10, 10);
             }
+ 
     }
 }
