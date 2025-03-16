@@ -34,7 +34,7 @@ namespace MohawkGame2D
         float score = 0f;  // score based on time
 
         Obstacle[] obstacles = { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) };
-        Clouds[] clouds = { new Clouds(new Vector2(750, 350)), new Clouds(new Vector2(950, 350)) };
+        Clouds[] clouds = { new Clouds(new Vector2(750, 100)), new Clouds(new Vector2(950, 100)) };
 
         //Game state management
         bool isGameOver = false;
@@ -63,15 +63,10 @@ namespace MohawkGame2D
         // when the game is running 
         public void PlayGame()
         {
-            //Window.ClearBackground(Color.White);
+            // Clear background and draw other elements
             Graphics.Draw(backgroundTexture, 0, 0);
             DrawGround();
             Graphics.Draw(capybaraTexture, capybaraPosition);
-
-            // Draw position circle and box around capybara
-            Draw.FillColor = new Color(90, 10, 0);
-            Draw.Circle(capybaraPosition.X, capybaraPosition.Y, 5);
-            //Draw.Rectangle(capybaraPosition.X + 10, capybaraPosition.Y + 50, 130, 100);
 
             // player jump logic 
             if (Input.IsKeyboardKeyPressed(KeyboardInput.Space) && (groundStart.Y < capybaraPosition.Y + capybaraHeight + jumpGrace))
@@ -106,11 +101,7 @@ namespace MohawkGame2D
                 // reset scale
                 Graphics.Scale = 1f;
 
-                // Draw position circle and box around orange
-                Draw.Circle(obstacle.position.X, obstacle.position.Y, 5);
-                //Draw.Rectangle(obstacle.position.X + 45, obstacle.position.Y + 50, 55, 50);
-
-                // reset obstacle position if goes off screen
+                // reset obstacle position if it goes off screen
                 if (obstacle.position.X < -100)
                 {
                     obstacle.position.X = 850;
@@ -121,8 +112,20 @@ namespace MohawkGame2D
                     isGameOver = true;
                 }
             }
+            // update and draw clouds
+            foreach (var cloud in clouds)
+            {
+                cloud.position -= Vector2.UnitX * 2.4f; // move the cloud leftwards at a speed of 2.4 units per frame
 
-            // update clouds
+                // draw the cloud at its new position
+                Graphics.Draw(cloudTexture, cloud.position);
+
+                // if the cloud moves off screen (to the left), reset it to the right side of the screen
+                if (cloud.position.X < -cloudTexture.Width)
+                {
+                    cloud.position.X = 800; // reset to the right edge of the screen
+                }
+            }
         }
 
         // logic when the game is over
