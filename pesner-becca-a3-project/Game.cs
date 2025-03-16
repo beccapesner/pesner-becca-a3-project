@@ -18,6 +18,7 @@ namespace MohawkGame2D
         Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
         Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
         Texture2D backgroundTexture = Graphics.LoadTexture("./background.png");
+        Texture2D cloudTexture = Graphics.LoadTexture("./cloud.png");
 
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
@@ -27,12 +28,13 @@ namespace MohawkGame2D
         bool isJumping = false;
         const float jumpTimeDefault = 0.5f;
         float jumpTime = 0;
-        const float jumpPower = 3.5f;
-        const float gravity = 2.2f;
+        const float jumpPower = 4.5f;
+        const float gravity = 4.0f;
         const float obstacleSpeed = 3.0f;  // speed of obstacles
         float score = 0f;  // score based on time
 
         Obstacle[] obstacles = { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) };
+        Clouds[] clouds = { new Clouds(new Vector2(750, 350)), new Clouds(new Vector2(950, 350)) };
 
         //Game state management
         bool isGameOver = false;
@@ -119,6 +121,8 @@ namespace MohawkGame2D
                     isGameOver = true;
                 }
             }
+
+            // update clouds
         }
 
         // logic when the game is over
@@ -146,8 +150,8 @@ namespace MohawkGame2D
         }
         public void DrawGround()
         {
-            Draw.FillColor = new Color(70, 60, 10);
-            Draw.Rectangle(groundStart, groundSize);
+            //Draw.FillColor = new Color(70, 60, 10);
+            //Draw.Rectangle(groundStart, groundSize);
         }
     }
 
