@@ -14,10 +14,10 @@ namespace MohawkGame2D
     public class Game
     {
         // place your variables here:
-        Texture2D capybaraTexture = Graphics.LoadTexture("./capybara.png");
-        Texture2D orangeTexture = Graphics.LoadTexture("./orange.png");
-        Texture2D backgroundTexture = Graphics.LoadTexture("./background.png");
-        Texture2D cloudTexture = Graphics.LoadTexture("./cloud.png");
+        Texture2D capybaraTexture = Graphics.LoadTexture("../../../../assets/Graphics/capybara.png");
+        Texture2D orangeTexture = Graphics.LoadTexture("../../../../assets/Graphics/orange.png");
+        Texture2D backgroundTexture = Graphics.LoadTexture("../../../../assets/Graphics/background.png");
+        Texture2D cloudTexture = Graphics.LoadTexture("../../../../assets/Graphics/cloud.png");
 
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
