@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Numerics;
 using pesner_becca_a3_project;
-using Raylib_cs;
 
 // the namespace your code is in.
 namespace MohawkGame2D
