@@ -22,6 +22,7 @@ namespace MohawkGame2D
 
         Vector2 capybaraPosition = new Vector2(0, 250);
         float capybaraHeight = 150;
+        float capybaraWidth = 200;
         float jumpGrace = 5;
         Vector2 groundStart = new Vector2(0, 450);
         Vector2 groundSize = new Vector2(800, 150);
@@ -32,6 +33,8 @@ namespace MohawkGame2D
         const float gravity = 4.0f;
         const float obstacleSpeed = 3.0f;  // speed of obstacles
         float score = 0f;  // score based on time
+        float hitDistance = 50;
+        Vector2 hitOffset = new Vector2(50, 50);
 
         Obstacle[] obstacles = { new Obstacle(new Vector2(750, 350)), new Obstacle(new Vector2(950, 350)) };
         Clouds[] clouds = { new Clouds(new Vector2(750, 50)), new Clouds(new Vector2(950, 50)) };
@@ -107,10 +110,17 @@ namespace MohawkGame2D
                     obstacle.position.X = 850;
                 }
 
-                if (capybaraPosition.X >= obstacle.position.X && capybaraPosition.Y >= obstacle.position.Y)
+                // reset obstacle position if it goes off screen
+                if (obstacle.position.X < -100)
                 {
-                    isGameOver = true;
+                    obstacle.position.X = 850;
                 }
+
+                //// New collision detection using bounding boxes
+                //if (IsCollision(capybaraPosition, capybaraHeight, obstacle.position))
+                //{
+                //    isGameOver = true;
+                //}
             }
 
             // update and draw clouds
@@ -128,26 +138,35 @@ namespace MohawkGame2D
                 }
             }
 
+            // display score 
+            Text.Color = Color.Black;
+            Text.Size = 20;
+            score += Time.DeltaTime;
+            Text.Draw($"score: {score}", 10, 10);
+
+
             // collision detection 
             foreach (Obstacle obstacle in obstacles)
             {
-                if (Vector2.Distance(obstacle.position, capybaraPosition) < 5)
+                if (Vector2.Distance(obstacle.position, capybaraPosition + hitOffset) < hitDistance)
                 {
                     GameOver();
                 }
             }
+
         }
 
         // logic when the game is over
         public void GameOver()
         {
+            isGameOver = true;
             // game over text
             Text.Color = Color.White;
             Text.Size = 20;
             Text.Draw("game over!", 300, 50);
 
-            // reset the game after some time or on key press enter
-            if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter))
+            // reset the game after enter or space bar is pressed
+            if (Input.IsKeyboardKeyPressed(KeyboardInput.Enter) || Input.IsKeyboardKeyPressed(KeyboardInput.Space))
             {
                 ResetGame();
             }
@@ -156,6 +175,7 @@ namespace MohawkGame2D
         // resets the game state
         public void ResetGame()
         {
+            score = 0;
             capybaraPosition = new Vector2(0, 250);
             isJumping = false;
             isGameOver = false;
