@@ -114,12 +114,6 @@ namespace MohawkGame2D
                 {
                     obstacle.position.X = 850;
                 }
-
-                //// New collision detection using bounding boxes
-                //if (IsCollision(capybaraPosition, capybaraHeight, obstacle.position))
-                //{
-                //    isGameOver = true;
-                //}
             }
 
             // update and draw clouds
